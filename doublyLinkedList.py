@@ -98,12 +98,6 @@ class DoublyLinkedList:
             yield node
             node = node.next
     
-    def __subscription__(self):
-        node = self.head
-        while node is not None:
-            yield node
-            node=node.next
-    
     def add_tail_node(self, value):
         if self.is_empty():
             self.head = Node(value=value)
@@ -150,7 +144,7 @@ def show_pipeline():
     print("Сейчас в списке имеются элементы: ", end='\n\n')
     print("---------------------------")
     print('*начало списка*')
-    for i in doubly_linked_list[::-1]:
+    for i in doubly_linked_list:
         print(i.value)
     else: print("*конец списка*")
     print("--------------------------", end='\n\n')
@@ -174,9 +168,10 @@ print("Теперь снова добавим в хвост новый элем�
 doubly_linked_list.add_tail_node('000')
 show_pipeline()
 
-print(doubly_linked_list.remove_from_tail().value)
+print("Протестируем удаление с конца: ")
+print('Удаляем объект '+doubly_linked_list.remove_from_tail().value)
+show_pipeline()
 
-print("Теперь протестируем удаление, будем каждый раз удалять объект сначала с конца, затем с начала: ")
 # while doubly_linked_list.head is not None:
 #     print(f"Мы удаляем объект: {doubly_linked_list.remove_from_head().value}")
 #     print("Остались элементы:")
