@@ -1,48 +1,46 @@
-arr = [64, 34, 25, 12, 22, 11, 30]
+def compare(a, b):
+    if a[1] > b[1]:
+        return True
+    if a[1] < b[1]:
+        return False
+    if a[2] < b[2]:
+        return True
+    if a[2] > b[2]:
+        return False
+    return len(a[0]) >= len(b[0])
 
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    
-    pivot = arr[-1]
-    left, right = [], []
 
-    for elem in arr[:-1]:
-        if elem <= pivot:
-            left.append(elem)
-        else:
-            right.append(elem)
-    
-    return quick_sort(left) + [pivot] + quick_sort(right)
-    
-print(quick_sort(arr))
+def partition(arr, left, right):
+    pivot = arr[right]
+    left_index = left - 1
+    for j in range(left, right):    
+        if compare(arr[j], pivot):
+            left_index += 1
+            arr[left_index], arr[j] = arr[j], arr[left_index]
+    pivot_index = left_index + 1
+    arr[right], arr[pivot_index] = arr[pivot_index], arr[right]
+    return pivot_index
 
-def in_plase_quick_sort(arr):
-    middle = len(arr)//2
-    pivot = arr[middle]
-    left, right = 0, len(arr) - 1
-    while left < middle and right > middle:
-        print(f"Текущий вид списка: {arr}")
-        print(f"Текущий левый элемент: {arr[left]}, Текущий правый элемент: {arr[right]}")
-        if arr[left] < pivot:
-            if arr[right] > pivot:
-                left += 1
-                right -= 1
-                continue
-            else:
-                left += 1
-                continue
-        else:
-            if arr[right] > pivot:
-                right -= 1
-                continue
-            else:
-                arr[right], arr[left] = arr[left], arr[right]
-    else:
-        if left < middle:
-            arr[left], arr[middle] = arr[middle], arr[left]
-        else:
-            arr[right], arr[middle] = arr[middle], arr[right]
+
+def in_place_sort(arr, left, right):
+    if left<right:
+        pivot_index = partition(arr, left, right)
+        in_place_sort(arr, left, pivot_index-1)
+        in_place_sort(arr, pivot_index+1, right)
     return arr
 
-print(in_plase_quick_sort(arr))
+
+def manage(arr):
+    for pos, competitor in enumerate(in_place_sort(arr, 0, len(arr) - 1), start=1):
+        print(f"На", pos, "месте оказался", competitor[0])
+
+
+arr = [
+    ['alla', 4, 100],
+    ['gena', 6, 1000],
+    ['gosha', 2, 90],
+    ['rita', 2, 90],
+    ['Timofey', 4, 80]
+]
+
+manage(arr)
