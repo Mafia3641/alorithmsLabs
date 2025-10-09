@@ -56,36 +56,39 @@ def hoare_sort_part(arr, low, high):
         
         arr[i], arr[j] = arr[j], arr[i]
 
-def hoare_sort(arr, left, right):
+def hoare_sort(arr, left=0, right=None):
+    if right == None:
+        right = len(arr) - 1
     if left<right:
         pivot_index = hoare_sort_part(arr, left, right)
         hoare_sort(arr, left, pivot_index)
         hoare_sort(arr, pivot_index+1, right)
     return arr
 
-arr1 = [random.randint(0, 100_000_000) for i in range(1_000_000)]
-arr2 = [random.randint(0, 100_000_000) for i in range(1_000_000)]
-arr3 = [random.randint(0, 100_000_000) for i in range(1_00_000)]
+def main():
+    arr1 = [random.randint(0, 100_000_000) for i in range(1_000_000)]
+    arr2 = [random.randint(0, 100_000_000) for i in range(1_000_000)]
+    arr3 = [random.randint(0, 100_000_000) for i in range(1_000_000)]
 
-print("quick_sort: тест времени 1 млн элементов за x секунд:")
-curr_time = time.time()
-quick_sort_test = quick_sort(arr1)
-end_time = time.time()
-elapsed_time = end_time - curr_time
-print(f"Выполнено за {elapsed_time} секунд")
-
-
-print("in_place_quick_sort: тест времени 1 млн элементов за x секунд:")
-curr_time = time.time()
-in_place_sort_test = in_place_sort(arr2, 0, 1_000_000-1)
-end_time = time.time()
-elapsed_time = end_time - curr_time
-print(f"Выполнено за {elapsed_time} секунд")
+    print("quick_sort: тест времени 1 млн элементов за x секунд:")
+    curr_time = time.time()
+    quick_sort_test = quick_sort(arr1)
+    end_time = time.time()
+    elapsed_time = end_time - curr_time
+    print(f"Выполнено за {elapsed_time} секунд")
 
 
-print("haore_sort: тест времени 1 млн элементов за x секунд:")
-curr_time = time.time()
-hoare_sort_test = hoare_sort(arr3, 0, len(arr3)-1)
-end_time = time.time()
-elapsed_time = end_time - curr_time
-print(f"Выполнено за {elapsed_time} секунд")
+    print("in_place_quick_sort: тест времени 1 млн элементов за x секунд:")
+    curr_time = time.time()
+    in_place_sort_test = in_place_sort(arr2, 0, 1_000_000-1)
+    end_time = time.time()
+    elapsed_time = end_time - curr_time
+    print(f"Выполнено за {elapsed_time} секунд")
+
+
+    print("haore_sort: тест времени 1 млн элементов за x секунд:")
+    curr_time = time.time()
+    hoare_sort_test = hoare_sort(arr3, 0, len(arr3)-1)
+    end_time = time.time()
+    elapsed_time = end_time - curr_time
+    print(f"Выполнено за {elapsed_time} секунд")
